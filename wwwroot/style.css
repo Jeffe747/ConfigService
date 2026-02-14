@@ -245,3 +245,27 @@ button.danger-btn:disabled {
     color: var(--text-secondary);
     margin-right: 5px;
 }
+
+.system-key-container {
+    position: fixed;
+    top: 10px;
+    right: 15px;
+    background-color: var(--pane-bg);
+    border: 1px solid var(--border-color);
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.system-key-container code {
+    background: var(--bg-color);
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+    font-family: monospace;
+}
