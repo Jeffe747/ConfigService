@@ -33,7 +33,8 @@ const els = {
     deleteAppName: document.getElementById('delete-app-name'),
     deleteConfirmInput: document.getElementById('delete-confirm-input'),
     deleteModalCancel: document.getElementById('delete-modal-cancel'),
-    deleteModalConfirm: document.getElementById('delete-modal-confirm')
+    deleteModalConfirm: document.getElementById('delete-modal-confirm'),
+    modalConfirm: document.getElementById('modal-confirm')
 };
 
 // Init
