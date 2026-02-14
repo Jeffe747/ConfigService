@@ -1,3 +1,7 @@
+---
+description: Guide for AI developers working on ConfigService
+---
+
 # AI Developer Guide - ConfigService
 
 > **STATUS: ACTIVE**
