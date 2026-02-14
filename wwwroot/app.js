@@ -118,7 +118,7 @@ function renderConfigs() {
         const div = document.createElement('div');
         div.className = 'config-item';
         div.innerHTML = `
-            <div class="config-key">${escapeHtml(config.key)}</div>
+            <div class="config-key">$${escapeHtml(config.key)}</div>
             <div class="config-value">${escapeHtml(config.value)}</div>
         `;
         div.onclick = () => openModal('Edit Config', 'Key', 'Value', async (k, v) => upsertConfig(k, v), config.key, config.value);

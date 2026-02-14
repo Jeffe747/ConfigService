@@ -54,10 +54,16 @@ public class ConfigSubstitutionService : IConfigSubstitutionService
                 
                 if (property.Value is JsonValue val)
                 {
-                    // Check if exact match
-                    if (configItems.TryGetValue(path, out var newValue))
+                    if (val.ToString().StartsWith("$"))
                     {
-                        obj[key] = JsonValue.Create(newValue);
+                        var valueKey = val.ToString().Substring(1);
+                        var path = string.IsNullOrEmpty(currentPath) ? valueKey : $"{currentPath}:{valueKey}";
+
+                        // Check if exact match
+                        if (configItems.TryGetValue(valueKey, out var newValue))
+                        {
+                            obj[key] = JsonValue.Create(newValue);
+                        }
                     }
                 }
                 else if (property.Value != null)
