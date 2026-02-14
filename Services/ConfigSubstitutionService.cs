@@ -57,7 +57,7 @@ public class ConfigSubstitutionService : IConfigSubstitutionService
                     if (val.ToString().StartsWith("$"))
                     {
                         var valueKey = val.ToString().Substring(1);
-                        var path = string.IsNullOrEmpty(currentPath) ? valueKey : $"{currentPath}:{valueKey}";
+                        var configPath = string.IsNullOrEmpty(currentPath) ? valueKey : $"{currentPath}:{valueKey}";
 
                         // Check if exact match
                         if (configItems.TryGetValue(valueKey, out var newValue))
