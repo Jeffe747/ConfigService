@@ -10,6 +10,7 @@ public class ConfigContext : DbContext
     public DbSet<Application> Applications { get; set; }
     public DbSet<Models.Environment> Environments { get; set; }
     public DbSet<ConfigItem> ConfigItems { get; set; }
+    public DbSet<SystemOption> SystemOptions { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

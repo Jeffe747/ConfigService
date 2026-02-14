@@ -10,85 +10,91 @@
 </head>
 
 <body>
-    <div class="container">
-        <!-- Sidebar: Applications -->
-        <div class="pane apps-pane">
-            <div class="pane-header">
-                <h2>Apps</h2>
-                <button id="add-app-btn" class="icon-btn">+</button>
-            </div>
-            <div id="apps-list" class="list-container">
-                <!-- App items injected here -->
-            </div>
+    <div class="container" style="flex-direction: column;">
+        <div class="top-bar"
+            style="padding: 10px; background: #252526; color: #fff; border-bottom: 1px solid #333; margin-bottom: 10px;">
+            <span><strong>Global System Key:</strong> <code id="system-key-value"
+                    style="background: #333; padding: 2px 6px; border-radius: 4px;">Loading...</code></span>
         </div>
-
-        <!-- Middle: Environments -->
-        <div class="pane envs-pane">
-            <div class="pane-header">
-                <h2>Environments</h2>
-                <button id="add-env-btn" class="icon-btn" disabled>+</button>
+        <div style="display: flex; flex: 1; overflow: hidden;">
+            <!-- Sidebar: Applications -->
+            <div class="pane apps-pane">
+                <div class="pane-header">
+                    <h2>Apps</h2>
+                    <button id="add-app-btn" class="icon-btn">+</button>
+                </div>
+                <div id="apps-list" class="list-container">
+                    <!-- App items injected here -->
+                </div>
             </div>
-            <div id="envs-list" class="list-container">
-                <!-- Env items injected here -->
-                <div class="placeholder-text">Select an App</div>
-            </div>
-        </div>
 
-        <!-- Main: Configs -->
-        <div class="pane config-pane">
-            <div class="pane-header">
-                <h2>Configuration</h2>
-                <div id="app-info" class="hidden">
-                    <div class="api-key-display">
-                        <span class="label">API Key:</span>
-                        <code id="api-key-value">...</code>
+            <!-- Middle: Environments -->
+            <div class="pane envs-pane">
+                <div class="pane-header">
+                    <h2>Environments</h2>
+                    <button id="add-env-btn" class="icon-btn" disabled>+</button>
+                </div>
+                <div id="envs-list" class="list-container">
+                    <!-- Env items injected here -->
+                    <div class="placeholder-text">Select an App</div>
+                </div>
+            </div>
+
+            <!-- Main: Configs -->
+            <div class="pane config-pane">
+                <div class="pane-header">
+                    <h2>Configuration</h2>
+                    <div id="app-info" class="hidden">
+                        <div class="api-key-display">
+                            <span class="label">API Key:</span>
+                            <code id="api-key-value">...</code>
+                        </div>
+                    </div>
+                </div>
+                <div id="config-content" class="config-content">
+                    <div class="config-toolbar">
+                        <input type="text" id="config-search" placeholder="Search keys...">
+                        <button id="add-config-btn" class="primary-btn" disabled>Add Config</button>
+                    </div>
+                    <div id="config-list" class="list-container">
+                        <!-- Config items injected here -->
+                        <div class="placeholder-text">Select an Environment</div>
                     </div>
                 </div>
             </div>
-            <div id="config-content" class="config-content">
-                <div class="config-toolbar">
-                    <input type="text" id="config-search" placeholder="Search keys...">
-                    <button id="add-config-btn" class="primary-btn" disabled>Add Config</button>
+        </div>
+
+        <!-- Modals -->
+        <div id="modal-overlay" class="modal-overlay hidden">
+            <div class="modal">
+                <h3 id="modal-title">Title</h3>
+                <div class="modal-body">
+                    <input type="text" id="modal-input-1" placeholder="Name">
+                    <input type="text" id="modal-input-2" placeholder="Value" class="hidden">
                 </div>
-                <div id="config-list" class="list-container">
-                    <!-- Config items injected here -->
-                    <div class="placeholder-text">Select an Environment</div>
+                <div class="modal-footer">
+                    <button id="modal-cancel">Cancel</button>
+                    <button id="modal-confirm" class="primary-btn">Save</button>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Modals -->
-    <div id="modal-overlay" class="modal-overlay hidden">
-        <div class="modal">
-            <h3 id="modal-title">Title</h3>
-            <div class="modal-body">
-                <input type="text" id="modal-input-1" placeholder="Name">
-                <input type="text" id="modal-input-2" placeholder="Value" class="hidden">
-            </div>
-            <div class="modal-footer">
-                <button id="modal-cancel">Cancel</button>
-                <button id="modal-confirm" class="primary-btn">Save</button>
+        <div id="delete-modal-overlay" class="modal-overlay hidden">
+            <div class="modal">
+                <h3>Delete Application</h3>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete <strong id="delete-app-name"></strong>?</p>
+                    <p>Type <strong>delete</strong> to confirm.</p>
+                    <input type="text" id="delete-confirm-input" placeholder="Type 'delete'">
+                </div>
+                <div class="modal-footer">
+                    <button id="delete-modal-cancel">Cancel</button>
+                    <button id="delete-modal-confirm" class="danger-btn" disabled>Delete</button>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div id="delete-modal-overlay" class="modal-overlay hidden">
-        <div class="modal">
-            <h3>Delete Application</h3>
-            <div class="modal-body">
-                <p>Are you sure you want to delete <strong id="delete-app-name"></strong>?</p>
-                <p>Type <strong>delete</strong> to confirm.</p>
-                <input type="text" id="delete-confirm-input" placeholder="Type 'delete'">
-            </div>
-            <div class="modal-footer">
-                <button id="delete-modal-cancel">Cancel</button>
-                <button id="delete-modal-confirm" class="danger-btn" disabled>Delete</button>
-            </div>
-        </div>
-    </div>
-
-    <script src="app.js"></script>
+        <script src="app.js"></script>
 </body>
 
 </html>

@@ -9,16 +9,21 @@
 
   <ItemGroup>
     <Compile Include="Program.cs" />
+    <Compile Include="Controllers/AiController.cs" />
     <Compile Include="Controllers/AppsController.cs" />
     <Compile Include="Controllers/ConfigManagementController.cs" />
     <Compile Include="Controllers/SubstitutionController.cs" />
+    <Compile Include="Controllers/SystemController.cs" />
     <Compile Include="Data/ConfigContext.cs" />
     <Compile Include="Migrations/20260214065723_InitialCreate.Designer.cs" />
     <Compile Include="Migrations/20260214065723_InitialCreate.cs" />
+    <Compile Include="Migrations/20260214153639_AddSystemOptions.Designer.cs" />
+    <Compile Include="Migrations/20260214153639_AddSystemOptions.cs" />
     <Compile Include="Migrations/ConfigContextModelSnapshot.cs" />
     <Compile Include="Models/Application.cs" />
     <Compile Include="Models/ConfigItem.cs" />
     <Compile Include="Models/Environment.cs" />
+    <Compile Include="Models/SystemOption.cs" />
     <Compile Include="Services/ConfigSubstitutionService.cs" />
   </ItemGroup>
 
@@ -27,9 +32,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="appsettings.Development.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="config.db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="wwwroot/app.js">

@@ -50,3 +50,29 @@ To use the substitution service:
 1. **Migrations**: Always check for pending migrations.
 2. **Frontend**: Keep it simple (Vanilla JS). No build steps required.
 3. **AI Friendly**: Ensure endpoints return clear JSON errors.
+
+## 5. AI Configuration Management
+The service exposes a specialized API for AI agents to manage configurations globally.
+
+### Authentication
+All AI endpoints require the `X-System-Key` header. This key is generated on startup and displayed on the dashboard.
+
+### API Endpoints
+- `GET /api/ai/apps` - List all applications.
+- `GET /api/ai/envs/{appId}` - List environments for an application.
+- `GET /api/ai/config/{envId}` - List configurations for an environment.
+- `POST /api/ai/config` - Upsert a configuration.
+- `DELETE /api/ai/config/{id}` - Delete a configuration.
+
+### Example Usage
+**Upsert Config:**
+```bash
+curl -X POST http://localhost:5001/api/ai/config \
+     -H "X-System-Key: <SYSTEM_KEY>" \
+     -H "Content-Type: application/json" \
+     -d '{
+           "envId": 1,
+           "key": "NewConfigKey",
+           "value": "NewValue"
+         }'
+```

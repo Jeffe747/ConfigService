@@ -46,6 +46,15 @@ using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<ConfigContext>();
     db.Database.Migrate();
+
+    // Seed Global AI API Key
+    if (!db.SystemOptions.Any(o => o.Key == "GlobalAiApiKey"))
+    {
+        var apiKey = BitConverter.ToString(System.Security.Cryptography.SHA256.HashData(Guid.NewGuid().ToByteArray())).Replace("-", "").ToLower();
+        db.SystemOptions.Add(new ConfigService.Models.SystemOption { Key = "GlobalAiApiKey", Value = apiKey });
+        db.SaveChanges();
+        Console.WriteLine($"Generated Global AI API Key: {apiKey}");
+    }
 }
 
 // Configure the HTTP request pipeline.

@@ -41,6 +41,7 @@ const els = {
 async function init() {
     setupEventListeners();
     await loadApps();
+    await loadSystemKey();
 }
 
 // Data Loading
@@ -60,6 +61,19 @@ async function loadConfigs(appName, envName) {
     const res = await fetch(`${API_BASE}/apps/${appName}/envs/${envName}/config`);
     state.configs = await res.json();
     renderConfigs();
+}
+
+async function loadSystemKey() {
+    try {
+        const res = await fetch(`${API_BASE}/system/key`);
+        if (res.ok) {
+            const data = await res.json();
+            const keyEl = document.getElementById('system-key-value');
+            if (keyEl) keyEl.textContent = data.key;
+        }
+    } catch (e) {
+        console.error("Failed to load system key", e);
+    }
 }
 
 // Rendering
