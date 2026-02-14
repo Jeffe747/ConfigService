@@ -27,6 +27,14 @@ builder.Services.AddDbContext<ConfigContext>(options =>
     {
         // Default to SQLite
         var dbPath = Path.Join(builder.Environment.ContentRootPath, "config.db");
+        
+        var dataDir = builder.Configuration.GetValue<string>("DataDirectory");
+        if (!string.IsNullOrEmpty(dataDir))
+        {
+            Directory.CreateDirectory(dataDir);
+            dbPath = Path.Combine(dataDir, "config.db");
+        }
+
         options.UseSqlite($"Data Source={dbPath}");
     }
 });
