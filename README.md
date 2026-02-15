@@ -5,6 +5,11 @@ Centralized configuration management service for distributed applications. Capab
 
 ## 📦 Installation
 
+**One-line Install**:
+```bash
+curl -sL "https://raw.githubusercontent.com/Jeffe747/ConfigService/main/install.sh" | sudo bash
+```
+
 **Run Locally**:
 ```bash
 git clone https://github.com/Jeffe747/ConfigService.git
