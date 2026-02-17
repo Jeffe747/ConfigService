@@ -16,6 +16,7 @@ builder.Services.AddScoped<ConfigService.Services.IConfigSubstitutionService, Co
 // Database Configuration
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 var provider = builder.Configuration.GetValue<string>("DatabaseProvider");
+Console.WriteLine($"[ConfigService] Database Provider Configured: '{provider}'");
 
 builder.Services.AddDbContext<ConfigContext>(options =>
 {
