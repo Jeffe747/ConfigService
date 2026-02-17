@@ -70,13 +70,20 @@ public class AppsController : ControllerBase
     [HttpPost("{appName}/envs")]
     public async Task<ActionResult<Models.Environment>> CreateEnv(string appName, Models.Environment env)
     {
-        var app = await _context.Applications.FirstOrDefaultAsync(a => a.Name == appName);
-        if (app == null) return NotFound("App not found");
+        try
+        {
+            var app = await _context.Applications.FirstOrDefaultAsync(a => a.Name == appName);
+            if (app == null) return NotFound("App not found");
 
-        env.ApplicationId = app.Id;
-        _context.Environments.Add(env);
-        await _context.SaveChangesAsync();
+            env.ApplicationId = app.Id;
+            _context.Environments.Add(env);
+            await _context.SaveChangesAsync();
 
-        return Ok(env);
+            return Ok(env);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest($"Error creating env: {ex.Message} \n {ex.InnerException?.Message}");
+        }
     }
 }

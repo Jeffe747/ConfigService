@@ -25,12 +25,10 @@ namespace ConfigService.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ApiKey")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                        .IsRequired();
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                        .IsRequired();
 
                     b.HasKey("Id");
 
@@ -53,8 +51,7 @@ namespace ConfigService.Migrations
                         .HasMaxLength(450);
 
                     b.Property<string>("Value")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                        .IsRequired();
 
                     b.HasKey("Id");
 
@@ -76,8 +73,7 @@ namespace ConfigService.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                        .IsRequired();
 
                     b.HasKey("Id");
 
@@ -99,8 +95,7 @@ namespace ConfigService.Migrations
                         .HasMaxLength(450);
 
                     b.Property<string>("Value")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                        .IsRequired();
 
                     b.HasKey("Id");
 
