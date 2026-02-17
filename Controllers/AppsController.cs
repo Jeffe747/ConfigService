@@ -88,29 +88,5 @@ public class AppsController : ControllerBase
     }
 
 
-    [HttpGet("debug/schema")]
-    public IActionResult DebugSchema()
-    {
-        try
-        {
-            var result = new List<string>();
-            using (var command = _context.Database.GetDbConnection().CreateCommand())
-            {
-                command.CommandText = "SELECT COLUMN_NAME, DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Applications'";
-                _context.Database.OpenConnection();
-                using (var reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        result.Add($"{reader.GetString(0)}: {reader.GetString(1)}");
-                    }
-                }
-            }
-            return Ok(result);
-        }
-        catch (Exception ex)
-        {
-             return BadRequest(ex.Message);
-        }
-    }
+
 }
