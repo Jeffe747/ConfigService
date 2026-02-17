@@ -71,21 +71,4 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-try 
-{ 
-    var s = "#!/bin/bash\n" +
-            "set -e\n" +
-            "TEMP=$(mktemp -d)\n" +
-            "git clone https://github.com/Jeffe747/LinuxAgent.git \"$TEMP/LinuxAgent\"\n" +
-            "dotnet publish \"$TEMP/LinuxAgent/LinuxAgent/LinuxAgent.csproj\" -c Release -o /opt/linux-agent\n" +
-            "rm -rf \"$TEMP\"\n" +
-            "systemctl restart linux-agent\n";
-    if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Linux))
-    {
-        File.WriteAllText("/opt/linux-agent/update.sh", s);
-        System.Diagnostics.Process.Start("chmod", "+x /opt/linux-agent/update.sh");
-        Console.WriteLine("[Check] Injected /opt/linux-agent/update.sh");
-    }
-} catch { }
-
 app.Run("http://*:5001");
