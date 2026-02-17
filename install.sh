@@ -71,6 +71,9 @@ Restart=always
 User=root
 Environment=ASPNETCORE_URLS=http://*:5001
 Environment=DataDirectory=$DATA_DIR
+# Database Configuration (Set these on the server or uncomment and set here)
+# Environment=ConnectionStrings__DefaultConnection=Server=localhost;Database=ConfigService;Trusted_Connection=True;TrustServerCertificate=True;
+# Environment=DatabaseProvider=MSSQL
 
 [Install]
 WantedBy=multi-user.target
