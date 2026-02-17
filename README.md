@@ -49,9 +49,31 @@ curl -H "X-System-Key: <KEY>" http://localhost:5001/api/ai/config/<EnvID>
 curl -X POST http://localhost:5001/api/apps -H "Content-Type: application/json" -d '{ "name": "my-service" }'
 ```
 
+
 ## 🛠 Configuration
-*   **Database**: Defaults to SQLite (`config.db`). Supports MSSQL via `appsettings.json`.
+*   **Database**: Defaults to SQLite (`config.db`). Supports MSSQL via Environment Variable or `appsettings.json`.
 *   **Port**: 5001 (default).
+
+### Persistent Configuration (Systemd)
+
+To persist environment variables (e.g., Database Connection Strings) across updates/reinstalls, use `systemctl edit`.
+
+1.  Open the override file:
+    ```bash
+    sudo systemctl edit config-service
+    ```
+
+2.  Add your environment variables:
+    ```ini
+    [Service]
+    Environment=ConnectionStrings__DefaultConnection="Server=YOUR_SERVER;Database=ConfigService;User Id=YOUR_USER;Password=YOUR_PASSWORD;Trusted_Connection=False;TrustServerCertificate=True;"
+    Environment=DatabaseProvider=MSSQL
+    ```
+
+3.  Save and restart:
+    ```bash
+    sudo systemctl restart config-service
+    ```
 
 ## 📄 License
 MIT License. Developed by **Antigravity**, supervised by **Jeffe747**.
