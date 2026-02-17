@@ -134,7 +134,7 @@ function renderConfigs() {
         div.innerHTML = `
             <div class="config-key">$${escapeHtml(config.key)}</div>
             <div class="config-value">${escapeHtml(config.value)}</div>
-            <div class="delete-config-btn" title="Delete Config" onclick="event.stopPropagation(); deleteConfig('${escapeHtml(config.key)}')">🗑️</div>
+            <div class="delete-config-btn" title="Delete Config" onclick="event.stopPropagation(); deleteConfig(${config.id}, '${escapeHtml(config.key)}')">🗑️</div>
         `;
         div.onclick = () => openModal('Edit Config', 'Key', 'Value', async (k, v) => upsertConfig(k, v), config.key, config.value);
         els.configList.appendChild(div);
@@ -225,10 +225,10 @@ async function upsertConfig(key, value) {
     }
 }
 
-async function deleteConfig(key) {
+async function deleteConfig(id, key) {
     if (!confirm(`Are you sure you want to delete config '${key}'?`)) return;
 
-    const res = await fetch(`${API_BASE}/apps/${state.selectedApp.name}/envs/${state.selectedEnv.name}/config/${key}`, {
+    const res = await fetch(`${API_BASE}/apps/${state.selectedApp.name}/envs/${state.selectedEnv.name}/config/${id}`, {
         method: 'DELETE'
     });
     if (res.ok) {
