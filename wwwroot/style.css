@@ -124,6 +124,9 @@ body {
     padding: 10px;
     margin-bottom: 10px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .config-item:hover {
@@ -133,6 +136,25 @@ body {
 .config-key {
     font-weight: bold;
     color: var(--accent-color);
+}
+
+.delete-config-btn {
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.config-item:hover .delete-config-btn {
+    opacity: 1;
+}
+
+.config-value {
+    flex: 1;
+    text-align: right;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 input,
