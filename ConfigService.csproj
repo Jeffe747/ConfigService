@@ -19,6 +19,12 @@
     <Compile Include="Migrations/20260214065723_InitialCreate.cs" />
     <Compile Include="Migrations/20260214153639_AddSystemOptions.Designer.cs" />
     <Compile Include="Migrations/20260214153639_AddSystemOptions.cs" />
+    <Compile Include="Migrations/20260217170514_ResolvePendingChanges.Designer.cs" />
+    <Compile Include="Migrations/20260217170514_ResolvePendingChanges.cs" />
+    <Compile Include="Migrations/20260217183411_FixReappearingPendingChanges.Designer.cs" />
+    <Compile Include="Migrations/20260217183411_FixReappearingPendingChanges.cs" />
+    <Compile Include="Migrations/20260217191120_FixTextToNvarchar.Designer.cs" />
+    <Compile Include="Migrations/20260217191120_FixTextToNvarchar.cs" />
     <Compile Include="Migrations/ConfigContextModelSnapshot.cs" />
     <Compile Include="Models/Application.cs" />
     <Compile Include="Models/ConfigItem.cs" />
