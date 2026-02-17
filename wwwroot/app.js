@@ -133,6 +133,7 @@ function renderConfigs() {
         div.className = 'config-item';
         div.innerHTML = `
             <div class="config-key">$${escapeHtml(config.key)}</div>
+            <div class="delete-config-btn" title="Delete Config" onclick="event.stopPropagation(); deleteConfig('${escapeHtml(config.key)}')">🗑️</div>
             <div class="config-value">${escapeHtml(config.value)}</div>
         `;
         div.onclick = () => openModal('Edit Config', 'Key', 'Value', async (k, v) => upsertConfig(k, v), config.key, config.value);
@@ -221,6 +222,19 @@ async function upsertConfig(key, value) {
         await loadConfigs(state.selectedApp.name, state.selectedEnv.name);
     } else {
         alert('Failed to save config');
+    }
+}
+
+async function deleteConfig(key) {
+    if (!confirm(`Are you sure you want to delete config '${key}'?`)) return;
+
+    const res = await fetch(`${API_BASE}/apps/${state.selectedApp.name}/envs/${state.selectedEnv.name}/config/${key}`, {
+        method: 'DELETE'
+    });
+    if (res.ok) {
+        await loadConfigs(state.selectedApp.name, state.selectedEnv.name);
+    } else {
+        alert('Failed to delete config');
     }
 }
 

@@ -53,4 +53,23 @@ public class ConfigManagementController : ControllerBase
         await _context.SaveChangesAsync();
         return Ok(item);
     }
+    [HttpDelete("{key}")]
+    public async Task<IActionResult> DeleteConfig(string appName, string envName, string key)
+    {
+        var env = await _context.Environments
+            .Include(e => e.Application)
+            .FirstOrDefaultAsync(e => e.Name == envName && e.Application.Name == appName);
+            
+        if (env == null) return NotFound("Environment not found");
+
+        var existing = await _context.ConfigItems
+            .FirstOrDefaultAsync(c => c.EnvironmentId == env.Id && c.Key == key);
+
+        if (existing == null) return NotFound("Config key not found");
+
+        _context.ConfigItems.Remove(existing);
+        await _context.SaveChangesAsync();
+        
+        return NoContent();
+    }
 }
