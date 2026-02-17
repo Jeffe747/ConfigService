@@ -86,7 +86,7 @@ public class AppsController : ControllerBase
             return BadRequest($"Error creating env: {ex.Message} \n {ex.InnerException?.Message}");
         }
     }
-    }
+
 
     [HttpGet("debug/schema")]
     public IActionResult DebugSchema()
