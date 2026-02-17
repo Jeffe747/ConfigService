@@ -59,12 +59,29 @@ All AI endpoints require the `X-System-Key` header. This key is generated on sta
 
 ### API Endpoints
 - `GET /api/ai/apps` - List all applications.
+- `POST /api/ai/apps` - Create an application. Body: `{ "name": "MyApp" }`
 - `GET /api/ai/envs/{appId}` - List environments for an application.
+- `POST /api/ai/envs` - Create an environment. Body: `{ "appName": "MyApp", "envName": "Prod" }`
 - `GET /api/ai/config/{envId}` - List configurations for an environment.
 - `POST /api/ai/config` - Upsert a configuration.
 - `DELETE /api/ai/config/{id}` - Delete a configuration.
 
 ### Example Usage
+**Create App:**
+```bash
+curl -X POST http://localhost:5001/api/ai/apps \
+     -H "X-System-Key: <SYSTEM_KEY>" \
+     -H "Content-Type: application/json" \
+     -d '{ "name": "NewApp" }'
+```
+
+**Create Env:**
+```bash
+curl -X POST http://localhost:5001/api/ai/envs \
+     -H "X-System-Key: <SYSTEM_KEY>" \
+     -H "Content-Type: application/json" \
+     -d '{ "appName": "NewApp", "envName": "Dev" }'
+```
 **Upsert Config:**
 ```bash
 curl -X POST http://localhost:5001/api/ai/config \

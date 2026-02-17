@@ -100,6 +100,57 @@ public class AiController : ControllerBase
         await _context.SaveChangesAsync();
         return Ok(new { Message = "Configuration deleted" });
     }
+    [HttpPost("apps")]
+    public async Task<IActionResult> CreateApp([FromBody] AppDto dto)
+    {
+        if (!IsAuthorized()) return Unauthorized("Invalid X-System-Key");
+
+        if (string.IsNullOrWhiteSpace(dto.Name)) return BadRequest("App Name required");
+
+        if (await _context.Applications.AnyAsync(a => a.Name == dto.Name))
+        {
+            return Conflict("App with this name already exists");
+        }
+
+        var app = new Application
+        {
+            Name = dto.Name,
+            ApiKey = Guid.NewGuid().ToString("N")
+        };
+
+        _context.Applications.Add(app);
+        await _context.SaveChangesAsync();
+
+        return Ok(app);
+    }
+
+    [HttpPost("envs")]
+    public async Task<IActionResult> CreateEnv([FromBody] EnvDto dto)
+    {
+        if (!IsAuthorized()) return Unauthorized("Invalid X-System-Key");
+
+        if (string.IsNullOrWhiteSpace(dto.AppName) || string.IsNullOrWhiteSpace(dto.EnvName))
+            return BadRequest("AppName and EnvName required");
+
+        var app = await _context.Applications.FirstOrDefaultAsync(a => a.Name == dto.AppName);
+        if (app == null) return NotFound($"App '{dto.AppName}' not found");
+
+        if (await _context.Environments.AnyAsync(e => e.ApplicationId == app.Id && e.Name == dto.EnvName))
+        {
+             return Conflict($"Environment '{dto.EnvName}' already exists for App '{dto.AppName}'");
+        }
+
+        var env = new ConfigService.Models.Environment
+        {
+            Name = dto.EnvName,
+            ApplicationId = app.Id
+        };
+
+        _context.Environments.Add(env);
+        await _context.SaveChangesAsync();
+
+        return Ok(env);
+    }
 }
 
 public class ConfigItemDto
@@ -107,4 +158,15 @@ public class ConfigItemDto
     public int EnvId { get; set; }
     public string Key { get; set; } = string.Empty;
     public string Value { get; set; } = string.Empty;
+}
+
+public class AppDto
+{
+    public string Name { get; set; } = string.Empty;
+}
+
+public class EnvDto
+{
+    public string AppName { get; set; } = string.Empty;
+    public string EnvName { get; set; } = string.Empty;
 }
