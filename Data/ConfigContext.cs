@@ -12,6 +12,11 @@ public class ConfigContext : DbContext
     public DbSet<ConfigItem> ConfigItems { get; set; }
     public DbSet<SystemOption> SystemOptions { get; set; }
 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.ConfigureWarnings(w => w.Ignore(Microsoft.EntityFrameworkCore.Diagnostics.RelationalEventId.PendingModelChangesWarning));
+    }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
