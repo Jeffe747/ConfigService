@@ -76,4 +76,4 @@ To persist environment variables (e.g., Database Connection Strings) across upda
     ```
 
 ## 📄 License
-MIT License. Developed by **Antigravity**, supervised by **Jeffe747**.
+MIT License. Developed by **Antigravity**, supervised by **Jeffe747**, with implementation support from **GitHub Copilot**.
