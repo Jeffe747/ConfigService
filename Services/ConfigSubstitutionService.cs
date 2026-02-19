@@ -1,5 +1,6 @@
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using System.Text.RegularExpressions;
 using ConfigService.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -54,15 +55,29 @@ public class ConfigSubstitutionService : IConfigSubstitutionService
                 
                 if (property.Value is JsonValue val)
                 {
-                    if (val.ToString().StartsWith("$"))
+                    var rawValue = val.ToString();
+
+                    if (rawValue.StartsWith("$"))
                     {
-                        var valueKey = val.ToString().Substring(1);
-                        var configPath = string.IsNullOrEmpty(currentPath) ? valueKey : $"{currentPath}:{valueKey}";
+                        var valueKey = rawValue.Substring(1);
 
                         // Check if exact match
                         if (configItems.TryGetValue(valueKey, out var newValue))
                         {
                             obj[key] = JsonValue.Create(newValue);
+                        }
+                    }
+                    else if (rawValue.Contains("{{") && rawValue.Contains("}}"))
+                    {
+                        var replaced = Regex.Replace(rawValue, "\\{\\{([^{}]+)\\}\\}", match =>
+                        {
+                            var valueKey = match.Groups[1].Value.Trim();
+                            return configItems.TryGetValue(valueKey, out var newValue) ? newValue : match.Value;
+                        });
+
+                        if (!string.Equals(replaced, rawValue, StringComparison.Ordinal))
+                        {
+                            obj[key] = JsonValue.Create(replaced);
                         }
                     }
                 }
