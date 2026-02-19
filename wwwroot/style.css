@@ -257,7 +257,7 @@ button.danger-btn:disabled {
 
 .system-key-container {
     position: fixed;
-    top: 10px;
+    bottom: 10px;
     right: 15px;
     background-color: var(--pane-bg);
     border: 1px solid var(--border-color);
