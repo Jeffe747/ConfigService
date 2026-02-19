@@ -49,6 +49,22 @@ curl -H "X-System-Key: <KEY>" http://localhost:5001/api/ai/config/<EnvID>
 curl -X POST http://localhost:5001/api/apps -H "Content-Type: application/json" -d '{ "name": "my-service" }'
 ```
 
+## 🔁 Config Value Substitution
+
+When Config Service performs substitution in config files, placeholders must use the format:
+
+`{{key}}`
+
+Example:
+
+```json
+{
+    "ConnectionString": "Server={{db_server}};Database={{db_name}};User Id={{db_user}};Password={{db_password}};"
+}
+```
+
+Do **not** use `$key` or `${key}` style placeholders. Those are not replaced by Config Service.
+
 
 ## 🛠 Configuration
 *   **Database**: Defaults to SQLite (`config.db`). Supports MSSQL via Environment Variable or `appsettings.json`.
