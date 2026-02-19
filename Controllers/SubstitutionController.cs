@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using ConfigService.Services;
 using ConfigService.Data;
-using Microsoft.EntityFrameworkCore;
 
 namespace ConfigService.Controllers;
 
@@ -18,19 +17,28 @@ public class SubstitutionController : ControllerBase
         _context = context;
     }
 
+    private bool IsAuthorized()
+    {
+        if (!Request.Headers.TryGetValue("X-System-Key", out var headerKey))
+        {
+            return false;
+        }
+
+        var systemKey = _context.SystemOptions
+            .Where(o => o.Key == "GlobalAiApiKey")
+            .Select(o => o.Value)
+            .FirstOrDefault();
+
+        return systemKey == headerKey.ToString();
+    }
+
     [HttpPost("{appName}/{envName}")]
     public async Task<IActionResult> Substitute(string appName, string envName, [FromBody] object jsonTemplate)
     {
-        // 1. Auth Check (API Key)
-        if (!Request.Headers.TryGetValue("X-App-Key", out var apiKey))
+        // 1. Auth Check (Global System Key)
+        if (!IsAuthorized())
         {
-            return Unauthorized("Missing X-App-Key header");
-        }
-
-        var app = await _context.Applications.FirstOrDefaultAsync(a => a.Name == appName);
-        if (app == null || app.ApiKey != apiKey.ToString())
-        {
-            return Unauthorized("Invalid API Key");
+            return Unauthorized("Invalid X-System-Key");
         }
 
         // 2. Perform Substitution

@@ -34,12 +34,6 @@ public class AppsController : ControllerBase
     public async Task<ActionResult<Application>> CreateApp(Application app)
     {
         if (string.IsNullOrWhiteSpace(app.Name)) return BadRequest("Name required");
-        
-        // Generate API Key if not provided
-        if (string.IsNullOrEmpty(app.ApiKey))
-        {
-            app.ApiKey = Guid.NewGuid().ToString("N");
-        }
 
         _context.Applications.Add(app);
         await _context.SaveChangesAsync();

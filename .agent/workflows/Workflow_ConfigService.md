@@ -25,7 +25,7 @@ description: Guide for AI developers working on ConfigService
 
 ### API Endpoints
 - `GET /api/apps` - List apps
-- `POST /config/{appName}/{envName}` - Substitute JSON template. Requires `X-App-Key` header.
+- `POST /config/{appName}/{envName}` - Substitute JSON template. Requires `X-System-Key` header.
 
 ## 3. Workflows
 
@@ -37,11 +37,11 @@ description: Guide for AI developers working on ConfigService
 
 ### Configuration Substitution
 To use the substitution service:
-1. **Get API Key**: Create an App in the dashboard and copy the API Key.
+1. **Get System Key**: Use the global key from dashboard, logs, or `GET /api/system/key`.
 2. **Send Request**:
    ```bash
    curl -X POST http://localhost:5000/config/MyApp/Prod \
-        -H "X-App-Key: <YOUR_KEY>" \
+     -H "X-System-Key: <SYSTEM_KEY>" \
         -H "Content-Type: application/json" \
         -d '{ "ConnectionStrings": { "Default": "ReplaceMe" } }'
    ```

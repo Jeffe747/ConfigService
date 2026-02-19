@@ -114,8 +114,7 @@ public class AiController : ControllerBase
 
         var app = new Application
         {
-            Name = dto.Name,
-            ApiKey = Guid.NewGuid().ToString("N")
+            Name = dto.Name
         };
 
         _context.Applications.Add(app);

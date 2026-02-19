@@ -25,6 +25,8 @@
     <Compile Include="Migrations/20260217183411_FixReappearingPendingChanges.cs" />
     <Compile Include="Migrations/20260217191120_FixTextToNvarchar.Designer.cs" />
     <Compile Include="Migrations/20260217191120_FixTextToNvarchar.cs" />
+    <Compile Include="Migrations/20260219175159_RemoveLegacyAppApiKey.Designer.cs" />
+    <Compile Include="Migrations/20260219175159_RemoveLegacyAppApiKey.cs" />
     <Compile Include="Migrations/ConfigContextModelSnapshot.cs" />
     <Compile Include="Models/Application.cs" />
     <Compile Include="Models/ConfigItem.cs" />

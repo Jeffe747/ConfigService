@@ -17,8 +17,6 @@ const els = {
     addAppBtn: document.getElementById('add-app-btn'),
     addEnvBtn: document.getElementById('add-env-btn'),
     addConfigBtn: document.getElementById('add-config-btn'),
-    appInfo: document.getElementById('app-info'),
-    apiKeyVal: document.getElementById('api-key-value'),
     configSearch: document.getElementById('config-search'),
 
     // Modal
@@ -165,7 +163,6 @@ function selectApp(app) {
     // Enable Add Env
     els.addEnvBtn.disabled = false;
     els.addConfigBtn.disabled = true;
-    els.appInfo.classList.add('hidden');
 
     loadEnvs(app.name);
 }
@@ -178,10 +175,8 @@ function selectEnv(env) {
     renderEnvs();
     renderConfigs();
 
-    // Enable Add Config & Show Info
+    // Enable Add Config
     els.addConfigBtn.disabled = false;
-    els.appInfo.classList.remove('hidden');
-    els.apiKeyVal.textContent = state.selectedApp.apiKey;
 
     loadConfigs(state.selectedApp.name, env.name);
 }
@@ -254,7 +249,6 @@ async function deleteApp(appId) {
         renderConfigs();
         els.addEnvBtn.disabled = true;
         els.addConfigBtn.disabled = true;
-        els.appInfo.classList.add('hidden');
     } else {
         alert('Failed to delete app');
     }
